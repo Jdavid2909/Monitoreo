@@ -2,6 +2,7 @@ import psutil
 import socket
 import smtplib
 from email.mime.text import MIMEText
+import multiprocessing
 
 def mostrar_informacion_cpu():
     print("Uso de la CPU:")
@@ -26,6 +27,8 @@ def mostrar_informacion_disco():
 mostrar_informacion_cpu()
 mostrar_informacion_memoria()
 mostrar_informacion_disco()
+num_procesadores = multiprocessing.cpu_count()
+print("Número de procesadores:", num_procesadores)
 
 direccion_ip = "192.168.0.100"
 puerto = 1234
@@ -39,23 +42,6 @@ umbral_memoria = 40
 
 
 uso_memoria = psutil.virtual_memory().percent
-
-
-if uso_memoria > umbral_memoria:
-   
-    mensaje = f"El uso de memoria ha superado el umbral. Uso actual: {uso_memoria} %"
-
-    socket_cliente = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    socket_cliente.connect((direccion_ip, puerto))
-
-    socket_cliente.send(mensaje.encode())
-
-    socket_cliente.close()
-
-    print("Información enviada correctamente.")
-else:
-    print("El uso de memoria está dentro del umbral.")
-
 if uso_memoria > umbral_memoria:
  
     mensaje = MIMEText(f"El uso de memoria ha superado el umbral. Uso actual: {uso_memoria} %")
