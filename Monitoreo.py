@@ -1,5 +1,4 @@
 import psutil
-import socket
 import smtplib
 from email.mime.text import MIMEText
 import multiprocessing
@@ -21,6 +20,12 @@ def mostrar_informacion_disco():
     print(" - Disponible:", psutil.disk_usage('/').free)
     print(" - Porcentaje de uso:", psutil.disk_usage('/').percent, "%")
 
+def obtener_rendimiento(ip):
+    cpu_percent = psutil.cpu_percent(interval=1)
+    memory_percent = psutil.virtual_memory().percent
+    
+    print(f"Uso de CPU en {ip}: {cpu_percent}%")
+    print(f"Uso de memoria en {ip}: {memory_percent}%")
 
 
 # Ejemplo de uso
@@ -29,9 +34,8 @@ mostrar_informacion_memoria()
 mostrar_informacion_disco()
 num_procesadores = multiprocessing.cpu_count()
 print("Número de procesadores:", num_procesadores)
-
-direccion_ip = "192.168.0.100"
-puerto = 1234
+ip_remota = "192.168.1.100"
+obtener_rendimiento(ip_remota)
 
 remitente = "tu-correo@gmail.com"
 destinatario = "destinatario@gmail.com"
