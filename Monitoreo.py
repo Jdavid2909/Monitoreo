@@ -59,6 +59,6 @@ if uso_memoria > umbral_memoria:
     servidor_smtp.sendmail(remitente, destinatario, mensaje.as_string())
     servidor_smtp.quit()
 
-    print("Correo electrónico enviado correctamente.")
+    print("Correo electrónico enviado correctamente")
 else:
-    print("El uso de memoria está dentro del umbral.")
+    print("El uso de memoria está dentro del umbral")
