@@ -23,13 +23,13 @@ def mostrar_informacion_disco():
 def obtener_rendimiento(ip):
     cpu_percent = psutil.cpu_percent(interval=1)
     memory_percent = psutil.virtual_memory().percent
-    disk_percent = psutil.disk_usage().percent
-    num_procesadores = multiprocessing.cpu_count(ip)
+    disk_percent = psutil.disk_usage('/').percent
+    num_procesadores = multiprocessing.cpu_count()
 
     print(f"\nUso de CPU en {ip}: {cpu_percent}%")
     print(f"\nUso de memoria en {ip}: {memory_percent}%")
     print(f"\nUso de disco en {ip}: {disk_percent}%")
-    print(f"\nUso de disco en {ip}: {num_procesadores}%")
+    print(f"\nNumero de procesadores en {ip}: {num_procesadores}%")
 
 # Ejemplo de uso
 mostrar_informacion_cpu()
@@ -38,14 +38,14 @@ mostrar_informacion_disco()
 num_procesadores = multiprocessing.cpu_count()
 print("\nNumero de procesadores:", num_procesadores)
 
-ip_remota = "192.168.0.103"
+ip = "192.168.0.103"
 print("\n================================================================")
-obtener_rendimiento(ip_remota)
+obtener_rendimiento(ip)
 print("\n================================================================")
 
-remitente = "tu-correo@gmail.com"
-destinatario = "destinatario@gmail.com"
-contraseña = "tu-contraseña"
+remitente = "jonatan14yanacallo@gmail.com"
+destinatario = "yanacallojonatan@gmail.com"
+contraseña = "munoz2001uce"
 asunto = "Uso de memoria excedido"
 
 umbral_memoria = 40
@@ -53,7 +53,6 @@ umbral_memoria = 40
 
 uso_memoria = psutil.virtual_memory().percent
 if uso_memoria > umbral_memoria:
- 
     mensaje = MIMEText(f"\nEl uso de memoria ha superado el umbral. Uso actual: {uso_memoria} %")
     mensaje["From"] = remitente
     mensaje["To"] = destinatario
