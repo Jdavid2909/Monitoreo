@@ -1,11 +1,13 @@
 
-
+import psutil
+import multiprocessing
 import random
 import time
 import json
 from paho.mqtt import client as mqtt_client
 from datetime import datetime
 from ..db.dbConnection import insertMetaData
+
 
 topic = "arquitectura/group/jhonattan"
 broker = "broker.hivemq.com"
@@ -15,6 +17,7 @@ port = 1883
 client_id = f'publish-{random.randint(0, 1000)}'
 # username = 'emqx'
 # password = 'public'
+
 
 def connect_mqtt():
     def on_connect(client, userdata, flags, rc):
@@ -32,7 +35,7 @@ def connect_mqtt():
 
 def getMetaDataOnOS():
     current_datetime = datetime.now()
-    data = { "id": "jhonattan","cpu": 30, "memory": 2, "net": 3, "temp": 5, "inserDT":current_datetime.strftime("%Y-%m-%d %H:%M:%S")}
+    data = { "id": "jhonattan","cpu": psutil.cpu_percent(), "memory": psutil.cpu_percent(), "disco": psutil.disk_usage('/').total, "num procesadores":multiprocessing.cpu_count() , "inserDT":current_datetime.strftime("%Y-%m-%d %H:%M:%S")}
 
     # Convert the dictionary to a JSON string
     json_string = json.dumps(data, indent=2)  # The indent parameter is optional and adds indentation for better readability
